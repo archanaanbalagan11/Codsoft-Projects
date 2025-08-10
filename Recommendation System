@@ -1,0 +1,32 @@
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
+ 
+movies = [
+    {"title": "The Matrix", "genre": "Action Sci-Fi"},
+    {"title": "John Wick", "genre": "Action Thriller"},
+    {"title": "Interstellar", "genre": "Sci-Fi Adventure"},
+    {"title": "Inception", "genre": "Sci-Fi Thriller"},
+    {"title": "The Dark Knight", "genre": "Action Crime"},
+    {"title": "Gravity", "genre": "Sci-Fi Drama"}
+]
+ 
+movie_titles = [movie["title"] for movie in movies]
+movie_genres = [movie["genre"] for movie in movies]
+ 
+vectorizer = CountVectorizer()
+genre_matrix = vectorizer.fit_transform(movie_genres)
+ 
+user_fav = input("Enter your favorite movie: ")
+
+if user_fav in movie_titles:
+    movie_index = movie_titles.index(user_fav)
+  
+    similarity_scores = cosine_similarity(genre_matrix[movie_index], genre_matrix).flatten()
+  
+    similar_indices = similarity_scores.argsort()[::-1]
+    
+    print("\nRecommended movies for you:")
+    for idx in similar_indices[1:4]:  
+        print(f"- {movie_titles[idx]} ({movie_genres[idx]})")
+else:
+    print("Movie not found in database!")
