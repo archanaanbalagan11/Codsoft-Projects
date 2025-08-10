@@ -1,0 +1,66 @@
+import re
+from datetime import datetime
+
+print("🤖 Chatbot: Hello! I am your friendly chatbot. Type 'bye' to exit.")
+
+while True:
+    user_input = input("You: ").lower()
+
+    # Greetings
+    if re.search(r"\b(hi|hello|hey)\b", user_input):
+        print("🤖 Chatbot: Hey there! How’s your day going?")
+    
+    # Asking how chatbot is
+    elif re.search(r"how are you", user_input):
+        print("🤖 Chatbot: I'm doing great! Just living in your terminal 😄. How about you?")
+    
+    # Name
+    elif re.search(r"(your name|who are you)", user_input):
+        print("🤖 Chatbot: I’m ChatBot 2.0, your virtual buddy!")
+    
+    # Help request
+    elif re.search(r"help|assist|support", user_input):
+        print("🤖 Chatbot: Sure! I can tell you jokes, the time, some facts, or just chat.")
+    
+    # Time
+    elif re.search(r"time", user_input):
+        now = datetime.now()
+        print(f"🤖 Chatbot: The current time is {now.strftime('%H:%M:%S')}")
+    
+    # Date
+    elif re.search(r"date|day", user_input):
+        today = datetime.now()
+        print(f"🤖 Chatbot: Today is {today.strftime('%A, %B %d, %Y')}")
+    
+    # Jokes
+    elif re.search(r"joke", user_input):
+        jokes = [
+            "Why did the computer go to the doctor? Because it caught a virus! 💻🤒",
+            "Why don’t skeletons fight each other? They don’t have the guts!",
+            "Why was the math book sad? It had too many problems."
+        ]
+        import random
+        print("😂 Chatbot:", random.choice(jokes))
+    
+    # Fun facts
+    elif re.search(r"fact", user_input):
+        facts = [
+            "Honey never spoils. Archaeologists have found 3000-year-old honey still edible.",
+            "Bananas are berries, but strawberries aren’t.",
+            "Octopuses have three hearts!"
+        ]
+        import random
+        print("📚 Chatbot:", random.choice(facts))
+    
+    # Weather (mock response)
+    elif re.search(r"weather", user_input):
+        print("🌤️ Chatbot: I can’t check live weather yet, but I hope it’s sunny where you are!")
+    
+    # Farewell
+    elif re.search(r"\b(bye|exit|quit)\b", user_input):
+        print("🤖 Chatbot: Goodbye! Have an amazing day! 👋")
+        break
+    
+    # Unknown input
+    else:
+        print("🤖 Chatbot: Hmm… I didn’t quite get that. Can you rephrase?")
